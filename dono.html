@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeFlow — Blood Donation Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --red: #e63030;
+  --red-dark: #9b1c1c;
+  --red-dim: rgba(230,48,48,0.12);
+  --red-glow: rgba(230,48,48,0.25);
+  --bg: #0a0808;
+  --bg2: #120d0d;
+  --bg3: #1c1313;
+  --bg4: #231818;
+  --line: rgba(255,255,255,0.07);
+  --line2: rgba(255,255,255,0.12);
+  --text: #f0e8e8;
+  --text2: #9c8a8a;
+  --text3: #5c4a4a;
+  --white: #ffffff;
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.12);
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+::selection { background: var(--red-glow); color: var(--white); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--red-dark); border-radius: 2px; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 3rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(10,8,8,0.85);
+  backdrop-filter: blur(20px);
+  transition: all 0.3s;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+}
+.nav-logo-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--red);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.7; }
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: var(--text2); font-size: 0.85rem; letter-spacing: 0.08em;
+  text-transform: uppercase; text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--red); }
+.nav-cta {
+  background: var(--red); color: var(--white);
+  border: none; padding: 0.6rem 1.5rem;
+  font-family: var(--font-body); font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.05em; cursor: pointer;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-cta:hover { background: #c72828; transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: grid; grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 7rem 3rem 4rem;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 70% 50%, rgba(230,48,48,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+.hero-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--red); font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+.hero-label::before {
+  content: ''; width: 24px; height: 1px; background: var(--red);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.hero h1 em {
+  font-style: italic; color: var(--red);
+}
+.hero-sub {
+  font-size: 1rem; color: var(--text2); max-width: 420px;
+  margin-bottom: 2.5rem; line-height: 1.8;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.btn-primary {
+  background: var(--red); color: var(--white);
+  border: none; padding: 0.9rem 2rem;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+  cursor: pointer; letter-spacing: 0.05em;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-primary:hover { background: #c72828; transform: translateY(-2px); }
+.btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--line2); padding: 0.9rem 2rem;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 400;
+  cursor: pointer; letter-spacing: 0.05em;
+  transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-ghost:hover { border-color: var(--red); color: var(--red); }
+.hero-stats {
+  display: flex; gap: 2rem; padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.hero-stat-item .num {
+  font-family: var(--font-display);
+  font-size: 1.8rem; font-weight: 700;
+  color: var(--red); line-height: 1;
+}
+.hero-stat-item .lbl {
+  font-size: 0.75rem; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+.hero-right {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-blood-container {
+  position: relative; width: 320px; height: 420px;
+}
+.blood-drop-svg {
+  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 60px rgba(230,48,48,0.4));
+}
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-16px) rotate(2deg); }
+}
+.hero-card {
+  position: absolute; bottom: 20px; left: -40px;
+  background: var(--bg3);
+  border: 1px solid var(--line2);
+  padding: 1rem 1.25rem; max-width: 200px;
+  animation: float 4s ease-in-out infinite 1s;
+}
+.hero-card2 {
+  position: absolute; top: 40px; right: -20px;
+  background: var(--bg3);
+  border: 1px solid var(--line2);
+  padding: 1rem 1.25rem;
+  animation: float 4s ease-in-out infinite 2s;
+}
+.hcard-num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--red); }
+.hcard-lbl { font-size: 0.72rem; color: var(--text2); }
+
+/* SECTION SHARED */
+section { padding: 6rem 3rem; }
+.section-eyebrow {
+  font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--red); font-weight: 500;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 1rem;
+}
+.section-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--red); }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 900; color: var(--white); line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.section-sub { font-size: 0.95rem; color: var(--text2); max-width: 560px; }
+.section-header { margin-bottom: 3.5rem; }
+.divider { width: 100%; height: 1px; background: var(--line); }
+
+/* STATS BAR */
+.stats-bar {
+  padding: 3rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--bg2);
+}
+.stat-item {
+  padding: 1.5rem 2rem;
+  border-right: 1px solid var(--line);
+  text-align: center;
+}
+.stat-item:last-child { border-right: none; }
+.stat-item .big {
+  font-family: var(--font-display);
+  font-size: 2.5rem; font-weight: 900; color: var(--red); line-height: 1;
+}
+.stat-item .desc { font-size: 0.8rem; color: var(--text2); margin-top: 6px; }
+
+/* JOURNEY SECTION */
+.journey-section { background: var(--bg); }
+.journey-layout {
+  display: grid; grid-template-columns: 280px 1fr;
+  gap: 0;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+}
+.journey-nav { border-right: 1px solid var(--line); padding: 2rem; }
+.journey-nav-btn {
+  width: 100%; text-align: left;
+  background: none; border: none; cursor: pointer;
+  padding: 1rem 1.25rem;
+  display: flex; align-items: flex-start; gap: 1rem;
+  color: var(--text3); font-family: var(--font-body);
+  transition: all 0.2s; margin-bottom: 4px;
+  border-left: 2px solid transparent;
+}
+.journey-nav-btn:hover { color: var(--text); border-left-color: var(--line2); }
+.journey-nav-btn.active {
+  color: var(--white); border-left-color: var(--red);
+  background: var(--red-dim);
+}
+.jnb-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--line); display: flex; align-items: center;
+  justify-content: center; font-size: 0.75rem; font-weight: 500;
+  flex-shrink: 0; margin-top: 2px;
+}
+.journey-nav-btn.active .jnb-num { background: var(--red); color: var(--white); }
+.jnb-title { font-size: 0.9rem; font-weight: 500; }
+.jnb-sub { font-size: 0.75rem; color: var(--text3); margin-top: 2px; }
+.journey-content { padding: 2.5rem 3rem; min-height: 520px; }
+.jc-panel { display: none; animation: fadeUp 0.4s ease; }
+.jc-panel.active { display: block; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.jc-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.jc-icon {
+  width: 48px; height: 48px; background: var(--red-dim);
+  border: 1px solid var(--red-dark);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--red); font-size: 1.2rem;
+}
+.jc-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--white); }
+.jc-body { display: flex; flex-direction: column; gap: 1.25rem; }
+.jc-card {
+  background: var(--bg3);
+  border: 1px solid var(--line);
+  padding: 1.25rem 1.5rem;
+}
+.jc-card-title { font-size: 0.85rem; font-weight: 500; color: var(--white); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+.jc-card-title i { color: var(--red); }
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.check-list li {
+  display: flex; gap: 10px; font-size: 0.88rem; color: var(--text2);
+}
+.check-list li::before {
+  content: '→'; color: var(--red); font-weight: 500; flex-shrink: 0;
+}
+.jc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.storage-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem; background: var(--bg3); border: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+.storage-label { font-size: 0.85rem; color: var(--text2); }
+.storage-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--red); }
+
+/* BLOOD TYPE SECTION */
+.btype-section { background: var(--bg2); }
+.btype-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.bt-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+.bt-btn {
+  background: var(--bg3); border: 1px solid var(--line);
+  padding: 1rem 0.5rem; text-align: center;
+  font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
+  color: var(--text2); cursor: pointer;
+  transition: all 0.2s;
+}
+.bt-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-dim); }
+.bt-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
+.compat-result {
+  background: var(--bg3); border: 1px solid var(--line);
+  padding: 1.5rem; display: none;
+  animation: fadeUp 0.3s ease;
+}
+.compat-result.show { display: block; }
+.compat-selected { font-family: var(--font-display); font-size: 2.5rem; font-weight: 900; color: var(--red); line-height: 1; }
+.compat-badge {
+  display: inline-block;
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 3px 10px; margin-left: 10px;
+  background: var(--red-dim); color: var(--red); border: 1px solid var(--red-dark);
+  vertical-align: middle;
+}
+.compat-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.25rem; }
+.compat-group-title { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-give {
+  background: rgba(230,48,48,0.15); color: #f87171;
+  border: 1px solid rgba(230,48,48,0.3);
+  padding: 4px 12px; font-size: 0.8rem; font-weight: 500;
+}
+.tag-recv {
+  background: rgba(59,130,246,0.12); color: #93c5fd;
+  border: 1px solid rgba(59,130,246,0.25);
+  padding: 4px 12px; font-size: 0.8rem; font-weight: 500;
+}
+.compat-fact {
+  margin-top: 1.25rem; padding: 1rem;
+  border-left: 2px solid var(--red);
+  background: var(--red-dim);
+  font-size: 0.82rem; color: var(--text2); line-height: 1.7;
+}
+.compat-placeholder { text-align: center; padding: 3rem; color: var(--text3); }
+/* Matrix */
+.matrix-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.matrix-table th {
+  text-align: left; padding: 0.75rem 1rem;
+  font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text3); border-bottom: 1px solid var(--line);
+  font-weight: 400;
+}
+.matrix-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--line); color: var(--text2); }
+.matrix-table tbody tr { cursor: pointer; transition: background 0.15s; }
+.matrix-table tbody tr:hover { background: var(--red-dim); }
+.matrix-table .type-col { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--white); }
+.matrix-table .pct-col { color: var(--red); font-weight: 500; }
+
+/* ELIGIBILITY */
+.elig-section { background: var(--bg); }
+.elig-layout { max-width: 720px; margin: 0 auto; }
+.quiz-progress { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2.5rem; }
+.quiz-progress-label { font-size: 0.75rem; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; }
+.quiz-progress-bar-wrap { flex: 1; height: 2px; background: var(--line); margin: 0 1.5rem; }
+.quiz-progress-fill { height: 100%; background: var(--red); transition: width 0.5s ease; }
+.quiz-question {
+  font-family: var(--font-display);
+  font-size: 1.5rem; font-weight: 700; color: var(--white);
+  line-height: 1.3; margin-bottom: 2rem;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-opt {
+  background: var(--bg2); border: 1px solid var(--line);
+  padding: 1rem 1.25rem;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; transition: all 0.2s;
+  color: var(--text2); font-size: 0.9rem;
+  text-align: left;
+}
+.quiz-opt:hover { border-color: var(--red); color: var(--white); background: var(--red-dim); }
+.quiz-opt.correct { border-color: var(--green); background: var(--green-dim); color: var(--green); }
+.quiz-opt.wrong { border-color: var(--red); background: var(--red-dim); color: #f87171; }
+.quiz-explanation {
+  margin-top: 1rem; padding: 1rem 1.25rem;
+  border-left: 2px solid var(--text3);
+  background: var(--bg3); font-size: 0.85rem; color: var(--text2); line-height: 1.7;
+  animation: fadeUp 0.3s ease;
+}
+.quiz-result-card {
+  text-align: center; padding: 3rem 2rem;
+  background: var(--bg2); border: 1px solid var(--line);
+  display: none; animation: fadeUp 0.4s ease;
+}
+.quiz-result-card.show { display: block; }
+.quiz-result-icon {
+  width: 72px; height: 72px; background: var(--red-dim);
+  border: 1px solid var(--red-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; color: var(--red);
+  margin: 0 auto 1.5rem;
+}
+.quiz-result-title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 900; color: var(--white); margin-bottom: 1rem; }
+.quiz-result-info { text-align: left; margin: 2rem 0; display: flex; flex-direction: column; gap: 1rem; }
+.quiz-info-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: var(--bg3); border: 1px solid var(--line); }
+.quiz-info-icon { color: var(--red); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.quiz-info-label { font-size: 0.85rem; font-weight: 500; color: var(--white); }
+.quiz-info-desc { font-size: 0.82rem; color: var(--text2); margin-top: 2px; }
+
+/* MYTHS */
+.myths-section { background: var(--bg2); }
+.myths-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.myth-card {
+  background: var(--bg3); border: 1px solid var(--line);
+  padding: 1.5rem; cursor: pointer;
+  transition: all 0.3s; position: relative;
+  min-height: 200px;
+}
+.myth-card:hover { border-color: var(--red); }
+.myth-front, .myth-back { position: absolute; inset: 1.5rem; transition: opacity 0.3s; }
+.myth-back { opacity: 0; pointer-events: none; }
+.myth-card.flipped .myth-front { opacity: 0; pointer-events: none; }
+.myth-card.flipped .myth-back { opacity: 1; pointer-events: all; }
+.myth-card.flipped { border-color: var(--green); background: rgba(34,197,94,0.05); }
+.myth-x {
+  width: 32px; height: 32px; background: rgba(230,48,48,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--red); font-size: 0.9rem; margin-bottom: 1rem;
+}
+.myth-check {
+  width: 32px; height: 32px; background: var(--green-dim);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--green); font-size: 0.9rem; margin-bottom: 1rem;
+}
+.myth-title { font-size: 0.95rem; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 0.5rem; }
+.myth-reveal { font-size: 0.72rem; color: var(--text3); letter-spacing: 0.08em; text-transform: uppercase; }
+.myth-verdict { font-size: 0.85rem; font-weight: 500; color: var(--green); margin-bottom: 0.5rem; }
+.myth-body { font-size: 0.82rem; color: var(--text2); line-height: 1.7; }
+
+/* CTA SECTION */
+.cta-section {
+  background: var(--red-dark);
+  padding: 6rem 3rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: 'GIVE'; position: absolute;
+  font-family: var(--font-display); font-size: 25vw; font-weight: 900;
+  color: rgba(255,255,255,0.04); line-height: 1;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  pointer-events: none; white-space: nowrap;
+}
+.cta-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 1rem; }
+.cta-title { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem; }
+.cta-sub { font-size: 1rem; color: rgba(255,255,255,0.65); max-width: 500px; margin: 0 auto 2.5rem; }
+.cta-badges { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+.cta-badge { font-size: 0.78rem; color: rgba(255,255,255,0.5); display: flex; align-items: center; gap: 6px; }
+
+/* FOOTER */
+footer {
+  background: #050303; border-top: 1px solid var(--line);
+  padding: 4rem 3rem 2rem;
+}
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; }
+.footer-logo { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+.footer-desc { font-size: 0.82rem; color: var(--text3); line-height: 1.8; max-width: 320px; }
+.footer-col-title { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); font-weight: 400; margin-bottom: 1rem; }
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-links a { font-size: 0.85rem; color: var(--text2); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--red); }
+.footer-bottom { border-top: 1px solid var(--line); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-note { font-size: 0.75rem; color: var(--text3); }
+
+/* MOBILE */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+  .hero-right { display: none; }
+  .stats-bar { grid-template-columns: repeat(2,1fr); }
+  section { padding: 4rem 1.5rem; }
+  .btype-layout, .jc-grid { grid-template-columns: 1fr; }
+  .journey-layout { grid-template-columns: 1fr; }
+  .journey-nav { border-right: none; border-bottom: 1px solid var(--line); padding: 1rem; display: flex; flex-wrap: wrap; gap: 6px; }
+  .journey-nav-btn { width: auto; padding: 0.5rem 1rem; }
+  .jnb-sub { display: none; }
+  .myths-grid { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .compat-groups { grid-template-columns: 1fr; }
+}
+@media (max-width: 500px) {
+  .myths-grid { grid-template-columns: 1fr; }
+  .stat-item { padding: 1.25rem 1rem; }
+  .bt-grid { grid-template-columns: repeat(4,1fr); }
+  .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    LifeFlow
+  </a>
+  <ul class="nav-links">
+    <li><a href="#journey">Process</a></li>
+    <li><a href="#bloodtypes">Blood Types</a></li>
+    <li><a href="#eligibility">Eligibility</a></li>
+    <li><a href="#myths">Myths</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('journey').scrollIntoView({behavior:'smooth'})">Start Learning</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:7rem">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-left" style="position:relative;z-index:1">
+    <div class="hero-label"><i class="fas fa-heart-pulse"></i> Educational Resource</div>
+    <h1>One Donation.<br><em>Three Lives.</em><br>Pure Science.</h1>
+    <p class="hero-sub">Understand blood types, the donation process, eligibility requirements, and the real science behind what happens to your blood. No fluff. Just facts.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('journey').scrollIntoView({behavior:'smooth'})">
+        Explore the Science <i class="fas fa-arrow-right"></i>
+      </button>
+      <button class="btn-ghost" onclick="document.getElementById('bloodtypes').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-flask"></i> Blood Type Lab
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-item"><div class="num">118M+</div><div class="lbl">Donations/year worldwide</div></div>
+      <div class="hero-stat-item"><div class="num">42 days</div><div class="lbl">Red cell shelf life</div></div>
+      <div class="hero-stat-item"><div class="num">3%</div><div class="lbl">Of eligible donors actually donate</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-blood-container">
+      <svg class="blood-drop-svg" width="300" height="400" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bgrad" cx="40%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#ff6b6b"/>
+            <stop offset="60%" stop-color="#e63030"/>
+            <stop offset="100%" stop-color="#7f1d1d"/>
+          </radialGradient>
+        </defs>
+        <path d="M100 8 C100 8 18 105 18 162 C18 207 55 244 100 244 C145 244 182 207 182 162 C182 105 100 8 100 8Z" fill="url(#bgrad)"/>
+        <ellipse cx="68" cy="120" rx="14" ry="26" fill="rgba(255,255,255,0.18)" transform="rotate(-25 68 120)"/>
+        <ellipse cx="82" cy="155" rx="5" ry="9" fill="rgba(255,255,255,0.1)" transform="rotate(-15 82 155)"/>
+      </svg>
+      <div class="hero-card">
+        <div class="hcard-num">2 sec</div>
+        <div class="hcard-lbl">Someone needs blood</div>
+      </div>
+      <div class="hero-card2">
+        <div class="hcard-num" style="font-size:1.3rem">O−</div>
+        <div class="hcard-lbl">Universal donor type</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="big">3</div><div class="desc">Lives saved per donation</div></div>
+  <div class="stat-item"><div class="big">8</div><div class="desc">Blood types in the ABO system</div></div>
+  <div class="stat-item"><div class="big">56 days</div><div class="desc">Wait between whole blood donations</div></div>
+  <div class="stat-item"><div class="big">5 days</div><div class="desc">Platelet shelf life (shortest)</div></div>
+</div>
+
+<!-- JOURNEY -->
+<section id="journey" class="journey-section">
+  <div class="section-header">
+    <div class="section-eyebrow">The Process</div>
+    <h2 class="section-title">The Journey of Blood</h2>
+    <p class="section-sub">From your arm to saving a life — click through each stage to understand exactly what happens.</p>
+  </div>
+  <div class="journey-layout">
+    <div class="journey-nav">
+      <button class="journey-nav-btn active" onclick="showStage(0,this)">
+        <div class="jnb-num">1</div>
+        <div><div class="jnb-title">Registration</div><div class="jnb-sub">Health history & check-in</div></div>
+      </button>
+      <button class="journey-nav-btn" onclick="showStage(1,this)">
+        <div class="jnb-num">2</div>
+        <div><div class="jnb-title">Donation</div><div class="jnb-sub">The actual blood draw</div></div>
+      </button>
+      <button class="journey-nav-btn" onclick="showStage(2,this)">
+        <div class="jnb-num">3</div>
+        <div><div class="jnb-title">Processing</div><div class="jnb-sub">Lab testing & separation</div></div>
+      </button>
+      <button class="journey-nav-btn" onclick="showStage(3,this)">
+        <div class="jnb-num">4</div>
+        <div><div class="jnb-title">Transfusion</div><div class="jnb-sub">Saving lives in hospitals</div></div>
+      </button>
+    </div>
+    <div class="journey-content">
+      <!-- Stage 0 -->
+      <div id="stage-0" class="jc-panel active">
+        <div class="jc-header">
+          <div class="jc-icon"><i class="fas fa-clipboard-list"></i></div>
+          <div class="jc-title">Registration & Health Check</div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-card">
+            <div class="jc-card-title"><i class="fas fa-temperature-half"></i> Mini-Physical Exam</div>
+            <ul class="check-list">
+              <li><strong>Temperature:</strong> Must be below 99.5°F / 37.5°C</li>
+              <li><strong>Blood Pressure:</strong> Systolic 90–180 mm Hg, diastolic under 100 mm Hg</li>
+              <li><strong>Pulse:</strong> Regular rhythm, 50–100 BPM</li>
+              <li><strong>Hemoglobin:</strong> At least 12.5 g/dL (women) / 13.0 g/dL (men)</li>
+            </ul>
+          </div>
+          <div class="jc-card">
+            <div class="jc-card-title"><i class="fas fa-file-medical"></i> Health History Questionnaire</div>
+            <ul class="check-list">
+              <li>Recent travel to malaria-risk or other flagged regions</li>
+              <li>Current medications and dosages</li>
+              <li>Previous surgeries, transfusions, or medical procedures</li>
+              <li>Exposure risk factors assessed confidentially</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Stage 1 -->
+      <div id="stage-1" class="jc-panel">
+        <div class="jc-header">
+          <div class="jc-icon"><i class="fas fa-hand-holding-droplet"></i></div>
+          <div class="jc-title">The Donation</div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-grid">
+            <div class="jc-card">
+              <div class="jc-card-title"><i class="fas fa-tint"></i> Whole Blood</div>
+              <ul class="check-list">
+                <li>Most common donation type</li>
+                <li>Takes 8–10 minutes to collect</li>
+                <li>~500 mL (one pint) collected</li>
+                <li>Separated into components later</li>
+              </ul>
+            </div>
+            <div class="jc-card">
+              <div class="jc-card-title"><i class="fas fa-microscope"></i> Apheresis</div>
+              <ul class="check-list">
+                <li>Machine separates specific components</li>
+                <li>Takes 1–2 hours total</li>
+                <li>Plasma or platelets collected</li>
+                <li>Rest of blood returned to donor</li>
+              </ul>
+            </div>
+          </div>
+          <div class="jc-card">
+            <div class="jc-card-title"><i class="fas fa-list-ol"></i> Step-by-Step: What Happens</div>
+            <ul class="check-list">
+              <li>A sterile, single-use needle is inserted into the antecubital vein (inner elbow area)</li>
+              <li>Blood flows through tubing into a sterile collection bag with anticoagulant to prevent clotting</li>
+              <li>The bag is on a rocker that gently mixes blood as it fills — takes under 10 minutes</li>
+              <li>Needle removed, pressure applied. You're done. Go eat the cookies.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Stage 2 -->
+      <div id="stage-2" class="jc-panel">
+        <div class="jc-header">
+          <div class="jc-icon"><i class="fas fa-vial"></i></div>
+          <div class="jc-title">Laboratory Processing</div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-card">
+            <div class="jc-card-title"><i class="fas fa-circle-nodes"></i> Centrifugation: Blood Gets Split</div>
+            <ul class="check-list">
+              <li><strong>Red Blood Cells (~45%):</strong> Carry oxygen. Used for trauma, surgery, anemia</li>
+              <li><strong>Plasma (~55%):</strong> Liquid part. Contains clotting factors and antibodies</li>
+              <li><strong>Platelets (&lt;1%):</strong> Tiny cell fragments critical for clotting. Vital for cancer patients</li>
+            </ul>
+          </div>
+          <div class="jc-grid">
+            <div class="jc-card">
+              <div class="jc-card-title"><i class="fas fa-virus-slash"></i> Disease Testing</div>
+              <ul class="check-list">
+                <li>HIV-1 and HIV-2</li>
+                <li>Hepatitis B and C</li>
+                <li>Syphilis, Zika, West Nile</li>
+                <li>Chagas disease (where endemic)</li>
+              </ul>
+            </div>
+            <div class="jc-card">
+              <div class="jc-card-title"><i class="fas fa-dna"></i> Blood Typing</div>
+              <ul class="check-list">
+                <li>ABO group confirmed</li>
+                <li>Rh factor determined</li>
+                <li>Unexpected antibody screen</li>
+                <li>Extended antigen typing if needed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Stage 3 -->
+      <div id="stage-3" class="jc-panel">
+        <div class="jc-header">
+          <div class="jc-icon"><i class="fas fa-hospital"></i></div>
+          <div class="jc-title">Storage & Transfusion</div>
+        </div>
+        <div class="jc-body">
+          <div class="jc-card">
+            <div class="jc-card-title"><i class="fas fa-snowflake"></i> Storage Conditions & Shelf Life</div>
+            <div style="margin-top:0.5rem">
+              <div class="storage-row">
+                <div><div style="font-size:0.88rem;color:var(--white);font-weight:500">Red Blood Cells</div><div class="storage-label">Refrigerated at 1–6°C</div></div>
+                <div class="storage-num">42 days</div>
+              </div>
+              <div class="storage-row">
+                <div><div style="font-size:0.88rem;color:var(--white);font-weight:500">Platelets</div><div class="storage-label">Room temp with agitation</div></div>
+                <div class="storage-num" style="color:#facc15">5 days</div>
+              </div>
+              <div class="storage-row" style="margin-bottom:0">
+                <div><div style="font-size:0.88rem;color:var(--white);font-weight:500">Plasma (FFP)</div><div class="storage-label">Frozen within 8–24 hours</div></div>
+                <div class="storage-num" style="color:#60a5fa">1 year</div>
+              </div>
+            </div>
+          </div>
+          <div class="jc-card">
+            <div class="jc-card-title"><i class="fas fa-heart-pulse"></i> Who Needs Your Blood?</div>
+            <div class="jc-grid" style="margin-top:0.5rem">
+              <ul class="check-list">
+                <li>Trauma & accident victims</li>
+                <li>Cancer patients on chemo</li>
+                <li>Organ transplant recipients</li>
+              </ul>
+              <ul class="check-list">
+                <li>Premature babies & mothers</li>
+                <li>Sickle cell disease patients</li>
+                <li>Burn and surgery patients</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOOD TYPES -->
+<section id="bloodtypes" class="btype-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Compatibility</div>
+    <h2 class="section-title">Blood Type Lab</h2>
+    <p class="section-sub">Select a blood type to see full compatibility — who can give to who, and why it matters.</p>
+  </div>
+  <div class="btype-layout">
+    <div>
+      <div class="bt-grid">
+        <button class="bt-btn" onclick="selectType('A+',this)" data-type="A+">A+</button>
+        <button class="bt-btn" onclick="selectType('A-',this)" data-type="A-">A−</button>
+        <button class="bt-btn" onclick="selectType('B+',this)" data-type="B+">B+</button>
+        <button class="bt-btn" onclick="selectType('B-',this)" data-type="B-">B−</button>
+        <button class="bt-btn" onclick="selectType('AB+',this)" data-type="AB+">AB+</button>
+        <button class="bt-btn" onclick="selectType('AB-',this)" data-type="AB-">AB−</button>
+        <button class="bt-btn" onclick="selectType('O+',this)" data-type="O+">O+</button>
+        <button class="bt-btn" onclick="selectType('O-',this)" data-type="O-">O−</button>
+      </div>
+      <div class="compat-result" id="compat-result">
+        <div>
+          <span class="compat-selected" id="cr-type">O−</span>
+          <span class="compat-badge" id="cr-badge">Universal Donor</span>
+        </div>
+        <div class="compat-groups">
+          <div>
+            <div class="compat-group-title">Can donate to</div>
+            <div class="tags" id="cr-give"></div>
+          </div>
+          <div>
+            <div class="compat-group-title">Can receive from</div>
+            <div class="tags" id="cr-recv"></div>
+          </div>
+        </div>
+        <div class="compat-fact" id="cr-fact"></div>
+      </div>
+      <div class="compat-placeholder" id="compat-placeholder">
+        <i class="fas fa-flask" style="font-size:2rem;margin-bottom:0.75rem;display:block"></i>
+        Select a blood type above
+      </div>
+    </div>
+    <div>
+      <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem">Full compatibility matrix</div>
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Donates to</th>
+            <th>Receives from</th>
+            <th>Population</th>
+          </tr>
+        </thead>
+        <tbody id="matrix-body"></tbody>
+      </table>
+      <div style="margin-top:1rem;padding:1rem;border-left:2px solid var(--line);font-size:0.78rem;color:var(--text3);line-height:1.7">
+        Simplified for education. Real transfusion medicine includes crossmatching and extended antigen typing (Kell, Duffy, Kidd systems).
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELIGIBILITY QUIZ -->
+<section id="eligibility" class="elig-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Eligibility Explorer</div>
+    <h2 class="section-title">Are You Eligible?</h2>
+    <p class="section-sub">Answer 5 questions to learn about real eligibility criteria. <strong style="color:var(--red)">Educational only — not a medical screening.</strong></p>
+  </div>
+  <div class="elig-layout">
+    <div id="quiz-wrap">
+      <div id="quiz-main">
+        <div class="quiz-progress">
+          <span class="quiz-progress-label" id="q-counter">Question 1 / 5</span>
+          <div class="quiz-progress-bar-wrap"><div class="quiz-progress-fill" id="q-bar" style="width:20%"></div></div>
+        </div>
+        <div class="quiz-question" id="q-text"></div>
+        <div class="quiz-options" id="q-opts"></div>
+      </div>
+      <div class="quiz-result-card" id="quiz-result">
+        <div class="quiz-result-icon"><i class="fas fa-clipboard-check"></i></div>
+        <div class="quiz-result-title">You now know the basics.</div>
+        <p style="font-size:0.9rem;color:var(--text2);max-width:480px;margin:0 auto">General guidelines — always confirmed by trained staff at your donation center using up-to-date regulatory requirements.</p>
+        <div class="quiz-result-info">
+          <div class="quiz-info-item">
+            <i class="fas fa-check-circle quiz-info-icon"></i>
+            <div><div class="quiz-info-label">Basic Requirements</div><div class="quiz-info-desc">Age 16–17 (with parental consent in some regions) or 18+, weight ≥110 lbs / 50 kg, good general health on donation day</div></div>
+          </div>
+          <div class="quiz-info-item">
+            <i class="fas fa-clock quiz-info-icon"></i>
+            <div><div class="quiz-info-label">Donation Frequency</div><div class="quiz-info-desc">Whole blood: every 56 days. Platelets: every 7 days (max 24/year). Plasma: every 28 days</div></div>
+          </div>
+          <div class="quiz-info-item">
+            <i class="fas fa-ban quiz-info-icon"></i>
+            <div><div class="quiz-info-label">Common Deferrals</div><div class="quiz-info-desc">Recent tattoos / piercings, certain medications, travel to malaria-risk areas, low hemoglobin, illness on donation day</div></div>
+          </div>
+        </div>
+        <button class="btn-primary" style="margin:0 auto" onclick="resetQuiz()">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MYTHS -->
+<section id="myths" class="myths-section">
+  <div class="section-header">
+    <div class="section-eyebrow">Myth-Busting</div>
+    <h2 class="section-title">Myth vs. Fact</h2>
+    <p class="section-sub">Click any card to flip it and get the truth. Some of these are genuinely wild.</p>
+  </div>
+  <div class="myths-grid">
+    <div class="myth-card" onclick="flipMyth(this)">
+      <div class="myth-front">
+        <div class="myth-x"><i class="fas fa-xmark"></i></div>
+        <div class="myth-title">"I'll get HIV from donating blood"</div>
+        <div class="myth-reveal">Tap to reveal →</div>
+      </div>
+      <div class="myth-back">
+        <div class="myth-check"><i class="fas fa-check"></i></div>
+        <div class="myth-verdict">Completely False</div>
+        <div class="myth-body">Every needle is sterile, single-use, and disposed of immediately. It's physically impossible to contract anything from donating. All equipment touches only you.</div>
+      </div>
+    </div>
+    <div class="myth-card" onclick="flipMyth(this)">
+      <div class="myth-front">
+        <div class="myth-x"><i class="fas fa-xmark"></i></div>
+        <div class="myth-title">"I don't have enough blood to spare"</div>
+        <div class="myth-reveal">Tap to reveal →</div>
+      </div>
+      <div class="myth-back">
+        <div class="myth-check"><i class="fas fa-check"></i></div>
+        <div class="myth-verdict">False — Your Body's Got You</div>
+        <div class="myth-body">Adults carry ~10 pints of blood. You donate 1. Plasma is restored within 24–48 hours. Red cells take 4–6 weeks — which is exactly why there's a 56-day wait.</div>
+      </div>
+    </div>
+    <div class="myth-card" onclick="flipMyth(this)">
+      <div class="myth-front">
+        <div class="myth-x"><i class="fas fa-xmark"></i></div>
+        <div class="myth-title">"Vegetarians can't donate"</div>
+        <div class="myth-reveal">Tap to reveal →</div>
+      </div>
+      <div class="myth-back">
+        <div class="myth-check"><i class="fas fa-check"></i></div>
+        <div class="myth-verdict">False — Diet Doesn't Disqualify</div>
+        <div class="myth-body">What matters is hemoglobin level, not protein source. Vegetarians with adequate iron intake donate all the time. Lentils, spinach, tofu — your blood doesn't care.</div>
+      </div>
+    </div>
+    <div class="myth-card" onclick="flipMyth(this)">
+      <div class="myth-front">
+        <div class="myth-x"><i class="fas fa-xmark"></i></div>
+        <div class="myth-title">"Diabetics can never donate"</div>
+        <div class="myth-reveal">Tap to reveal →</div>
+      </div>
+      <div class="myth-back">
+        <div class="myth-check"><i class="fas fa-check"></i></div>
+        <div class="myth-verdict">Mostly False</div>
+        <div class="myth-body">Well-controlled Type 2 diabetics and many Type 1 donors can donate if their condition is stable and no vascular complications exist. Insulin type matters — check locally.</div>
+      </div>
+    </div>
+    <div class="myth-card" onclick="flipMyth(this)">
+      <div class="myth-front">
+        <div class="myth-x"><i class="fas fa-xmark"></i></div>
+        <div class="myth-title">"Tattoos permanently disqualify you"</div>
+        <div class="myth-reveal">Tap to reveal →</div>
+      </div>
+      <div class="myth-back">
+        <div class="myth-check"><i class="fas fa-check"></i></div>
+        <div class="myth-verdict">False — Just a Waiting Period</div>
+        <div class="myth-body">Done at a regulated parlor? Many regions allow immediate donation. Unregulated = 3–12 month deferral. In the US, FDA updated rules in 2023 to reduce the wait significantly.</div>
+      </div>
+    </div>
+    <div class="myth-card" onclick="flipMyth(this)">
+      <div class="myth-front">
+        <div class="myth-x"><i class="fas fa-xmark"></i></div>
+        <div class="myth-title">"It hurts a lot"</div>
+        <div class="myth-reveal">Tap to reveal →</div>
+      </div>
+      <div class="myth-back">
+        <div class="myth-check"><i class="fas fa-check"></i></div>
+        <div class="myth-verdict">False — It's a 2-Second Pinch</div>
+        <div class="myth-body">The needle insertion is a quick sting, like a vaccine. Then nothing. Most donors scroll their phone the entire time. The anxiety is genuinely worse than the needle.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-label">Educational Resource</div>
+  <h2 class="cta-title">Ready to Save<br>Some Lives?</h2>
+  <p class="cta-sub">This site is for education only. To actually donate, find your local blood bank, Red Cross, or hospital donation center.</p>
+  <div class="cta-badges">
+    <span class="cta-badge"><i class="fas fa-shield-halved"></i> No Data Collected</span>
+    <span class="cta-badge"><i class="fas fa-graduation-cap"></i> Evidence-Based</span>
+    <span class="cta-badge"><i class="fas fa-heart-pulse"></i> Built to Educate</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo"><div class="nav-logo-dot" style="width:8px;height:8px"></div> LifeFlow</div>
+      <p class="footer-desc">An educational resource on the science and importance of blood donation. All content is for learning purposes only and does not constitute medical advice. Always consult your local donation center for eligibility.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Learn</div>
+      <ul class="footer-links">
+        <li><a href="#journey">The Donation Process</a></li>
+        <li><a href="#bloodtypes">Blood Type Lab</a></li>
+        <li><a href="#eligibility">Eligibility Explorer</a></li>
+        <li><a href="#myths">Myth-Busting</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">External Resources</div>
+      <ul class="footer-links">
+        <li><a href="#">Red Cross Guidelines</a></li>
+        <li><a href="#">WHO Blood Safety</a></li>
+        <li><a href="#">AABB Standards</a></li>
+        <li><a href="#">FDA Regulations</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-note">LifeFlow Education — For demonstration & learning purposes only.</span>
+    <span class="footer-note">Not affiliated with any medical institution.</span>
+  </div>
+</footer>
+
+<script>
+// NAV shrink on scroll
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('main-nav');
+  nav.style.padding = window.scrollY > 40 ? '0.75rem 3rem' : '1.25rem 3rem';
+});
+
+// JOURNEY
+function showStage(idx, btn) {
+  document.querySelectorAll('.jc-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.journey-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('stage-' + idx).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else document.querySelectorAll('.journey-nav-btn')[idx].classList.add('active');
+}
+
+// BLOOD TYPES DATA
+const btData = {
+  'A+':  { give:['A+','AB+'], recv:['A+','A-','O+','O-'], pct:'35.7%', badge:'', fact:'A+ is the second most common type worldwide. In emergencies where O+ is unavailable, A+ red cells can go to any Rh-positive patient.' },
+  'A-':  { give:['A+','A-','AB+','AB-'], recv:['A-','O-'], pct:'6.3%', badge:'', fact:'A- can donate to all A and AB types regardless of Rh factor, making it extremely valuable despite its rarity.' },
+  'B+':  { give:['B+','AB+'], recv:['B+','B-','O+','O-'], pct:'8.5%', badge:'', fact:'B+ is more prevalent in South Asian and East Asian populations. Plasma from B+ donors is universally compatible.' },
+  'B-':  { give:['B+','B-','AB+','AB-'], recv:['B-','O-'], pct:'1.5%', badge:'', fact:'B- is one of the rarest types. Only 1.5% of people have it, which makes every single B- donation critically important.' },
+  'AB+': { give:['AB+'], recv:['All types'], pct:'3.4%', badge:'Universal Recipient', fact:'AB+ is the universal recipient for red cells. However, AB plasma is the universal donor — flipped compatibility.' },
+  'AB-': { give:['AB+','AB-'], recv:['A-','B-','AB-','O-'], pct:'0.6%', badge:'Rarest Type', fact:'AB- is the rarest blood type on earth. Only 0.6% of people have it — these donors are always critically needed.' },
+  'O+':  { give:['O+','A+','B+','AB+'], recv:['O+','O-'], pct:'37.4%', badge:'Most Common', fact:'O+ is the most common type and the most transfused globally. It is the universal donor for all Rh-positive patients.' },
+  'O-':  { give:['All types'], recv:['O-'], pct:'6.6%', badge:'Universal Donor', fact:'O- is used in traumas when blood type is unknown. Every ER maintains a stock of O-. These donors are always in short supply.' },
+};
+
+function selectType(type, btn) {
+  document.querySelectorAll('.bt-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const d = btData[type];
+  document.getElementById('compat-placeholder').style.display = 'none';
+  const result = document.getElementById('compat-result');
+  result.classList.add('show');
+  document.getElementById('cr-type').textContent = type;
+  const badge = document.getElementById('cr-badge');
+  badge.textContent = d.badge;
+  badge.style.display = d.badge ? 'inline-block' : 'none';
+  document.getElementById('cr-give').innerHTML = d.give.map(t => `<span class="tag-give">${t}</span>`).join('');
+  document.getElementById('cr-recv').innerHTML = d.recv.map(t => `<span class="tag-recv">${t}</span>`).join('');
+  document.getElementById('cr-fact').innerHTML = `<i class="fas fa-lightbulb" style="color:var(--red);margin-right:6px"></i>${d.fact}`;
+}
+
+function initMatrix() {
+  const types = ['A+','A-','B+','B-','AB+','AB-','O+','O-'];
+  document.getElementById('matrix-body').innerHTML = types.map(t => {
+    const d = btData[t];
+    return `<tr onclick="selectType('${t}', document.querySelector('[data-type=\\'${t}\\']'))">
+      <td class="type-col">${t}</td>
+      <td>${d.give.join(', ')}</td>
+      <td>${d.recv.join(', ')}</td>
+      <td class="pct-col">${d.pct}</td>
+    </tr>`;
+  }).join('');
+}
+
+// QUIZ
+const questions = [
+  { q: 'What is the minimum age to donate whole blood in most regions?', opts: ['14 years old', '16–18 years old (varies by region)', '21 years old', 'No age minimum'], ans: 1, exp: 'Most regions require 16–18. Some allow 16-year-olds with parental consent. Age limits exist to protect developing bodies.' },
+  { q: 'What is the minimum weight requirement for whole blood donation?', opts: ['90 lbs / 41 kg', '100 lbs / 45 kg', '110 lbs / 50 kg', '130 lbs / 59 kg'], ans: 2, exp: 'Donating 1 pint (~500mL) from someone lighter than 110 lbs could cause a proportionally significant fluid loss, increasing health risks.' },
+  { q: 'How long must you wait between whole blood donations?', opts: ['28 days', '56 days (8 weeks)', '90 days', '6 months'], ans: 1, exp: 'Red blood cells take 4–6 weeks to fully regenerate. The 56-day rule gives your body time to safely restore hemoglobin levels.' },
+  { q: 'Can you donate if you have a cold today?', opts: ['Yes, mild colds are fine', 'No — you must be symptom-free', 'Only if no fever', 'Yes, if you take medicine first'], ans: 1, exp: 'Any active illness is a reason to defer. Illness affects your immune cells and could stress your body during donation. Come back when you\'re 100%.' },
+  { q: 'How quickly does your body replace donated plasma?', opts: ['Within 6 months', 'Exactly 8 weeks', 'Within 24–48 hours', 'It never fully replaces'], ans: 2, exp: 'Plasma is 90% water. Your body restores it in 24–48 hours. Red cells take 4–6 weeks — that\'s the limiting factor for donation frequency.' },
+];
+
+let qIdx = 0;
+function renderQ() {
+  const q = questions[qIdx];
+  document.getElementById('q-counter').textContent = `Question ${qIdx + 1} / ${questions.length}`;
+  document.getElementById('q-bar').style.width = `${((qIdx + 1) / questions.length) * 100}%`;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('q-opts').innerHTML = q.opts.map((o, i) =>
+    `<button class="quiz-opt" onclick="answerQ(${i})">${o}</button>`
+  ).join('');
+}
+function answerQ(sel) {
+  const q = questions[qIdx];
+  const btns = document.querySelectorAll('.quiz-opt');
+  btns.forEach((b, i) => {
+    b.onclick = null;
+    if (i === q.ans) b.classList.add('correct');
+    else if (i === sel && i !== q.ans) b.classList.add('wrong');
+  });
+  const exp = document.createElement('div');
+  exp.className = 'quiz-explanation';
+  exp.innerHTML = `<i class="fas fa-circle-info" style="color:var(--text3);margin-right:6px"></i>${q.exp}`;
+  document.getElementById('q-opts').appendChild(exp);
+  setTimeout(() => {
+    qIdx++;
+    if (qIdx < questions.length) renderQ();
+    else {
+      document.getElementById('quiz-main').style.display = 'none';
+      const r = document.getElementById('quiz-result');
+      r.classList.add('show');
+    }
+  }, 2600);
+}
+function resetQuiz() {
+  qIdx = 0;
+  document.getElementById('quiz-result').classList.remove('show');
+  document.getElementById('quiz-main').style.display = 'block';
+  renderQ();
+}
+
+// MYTHS
+function flipMyth(card) {
+  card.classList.toggle('flipped');
+}
+
+// Init
+initMatrix();
+renderQ();
+</script>
+</body>
+</html>
